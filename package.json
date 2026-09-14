@@ -1,0 +1,14 @@
+{
+  "name": "rule-of-life",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A private daily tracker for spiritual practice, deployable on Netlify.",
+  "scripts": {
+    "dev": "netlify dev"
+  },
+  "dependencies": {
+    "@netlify/blobs": "^8.1.0",
+    "@netlify/functions": "^2.8.1",
+    "web-push": "^3.6.7"
+  }
+}
