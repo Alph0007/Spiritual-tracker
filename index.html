@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Rule of Life</title>
+<meta name="description" content="A private daily tracker for spiritual practice." />
+<link rel="manifest" href="/manifest.json" />
+<meta name="theme-color" content="#4B2E5C" />
+<link rel="icon" href="/icons/icon-192.png" />
+<link rel="apple-touch-icon" href="/icons/icon-192.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+<div class="app">
+
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path d="M12 3l2.6 5.4L20 9.3l-4 3.9.9 5.6L12 16.2 7.1 18.8l.9-5.6-4-3.9 5.4-.9L12 3z" fill="currentColor"/></svg>
+      </span>
+      <span class="brand-name">Rule&nbsp;of&nbsp;Life</span>
+    </div>
+    <div class="streak-badge" id="streak-badge" title="Current streak">
+      <svg viewBox="0 0 24 24" width="16" height="16" class="flame-icon" aria-hidden="true"><path d="M12 2c1 3-3 4-3 8a3 3 0 006 0c1 1 2 2.3 2 4.2A5.2 5.2 0 0112 19a5.2 5.2 0 01-5-6.8C7.5 8 12 6 12 2z" fill="currentColor"/></svg>
+      <span id="streak-count">0</span>
+    </div>
+  </header>
+
+  <nav class="tabs" role="tablist" aria-label="Sections">
+    <button class="tab active" data-view="today" role="tab" aria-selected="true">Today</button>
+    <button class="tab" data-view="manage" role="tab" aria-selected="false">Rule&nbsp;of&nbsp;Life</button>
+    <button class="tab" data-view="journal" role="tab" aria-selected="false">Examen</button>
+    <button class="tab" data-view="settings" role="tab" aria-selected="false">Settings</button>
+  </nav>
+
+  <main>
+
+    <!-- TODAY -->
+    <section id="view-today" class="view active">
+      <p class="today-date" id="today-date"></p>
+
+      <div class="verse-card" id="verse-card">
+        <p class="verse-eyebrow">Word for today</p>
+        <blockquote class="verse-text" id="verse-text"></blockquote>
+        <p class="verse-ref" id="verse-ref"></p>
+      </div>
+
+      <div class="section-block">
+        <div class="section-head">
+          <h2>Today's practice</h2>
+          <span class="section-sub" id="today-progress-label"></span>
+        </div>
+        <ul class="checklist" id="checklist-list"></ul>
+        <p class="empty-hint" id="checklist-empty" hidden>Nothing scheduled yet — add something under <button class="link-btn" data-goto="manage">Rule of Life</button>.</p>
+      </div>
+
+      <div class="section-block">
+        <div class="section-head">
+          <h2>Streak</h2>
+        </div>
+        <div class="beads-row" id="streak-beads" aria-label="Streak progress, grouped in decades"></div>
+        <p class="section-note" id="streak-note"></p>
+      </div>
+    </section>
+
+    <!-- MANAGE -->
+    <section id="view-manage" class="view">
+      <div class="section-block">
+        <div class="section-head">
+          <h2>Recurring practices</h2>
+        </div>
+        <ul class="task-list" id="task-list"></ul>
+        <p class="empty-hint" id="task-empty" hidden>No recurring practices yet. Confession, Holy Mass, personal prayer time — add what shapes your week.</p>
+        <button class="add-btn" id="add-task-btn">+ Add practice</button>
+      </div>
+
+      <div class="section-block">
+        <div class="section-head">
+          <h2>Fixed-length plans</h2>
+          <span class="section-sub">e.g. a 40-day fast</span>
+        </div>
+        <ul class="plan-list" id="plan-list"></ul>
+        <p class="empty-hint" id="plan-empty" hidden>No plans running. Add a fast, novena, or challenge with a start date and length.</p>
+        <button class="add-btn" id="add-plan-btn">+ Add plan</button>
+      </div>
+    </section>
+
+    <!-- JOURNAL -->
+    <section id="view-journal" class="view">
+      <div class="section-block">
+        <div class="section-head">
+          <h2>Examen</h2>
+          <span class="section-sub" id="journal-date-label"></span>
+        </div>
+        <p class="examen-prompt">Where did you notice God today? What are you grateful for — what weighed on you?</p>
+        <textarea id="journal-text" rows="8" placeholder="Write freely. This stays only on this device."></textarea>
+        <p class="save-hint" id="journal-save-hint"></p>
+      </div>
+
+      <div class="section-block">
+        <div class="section-head">
+          <h2>Past entries</h2>
+        </div>
+        <ul class="journal-list" id="journal-list"></ul>
+        <p class="empty-hint" id="journal-empty" hidden>Nothing written yet.</p>
+      </div>
+    </section>
+
+    <!-- SETTINGS -->
+    <section id="view-settings" class="view">
+      <div class="section-block">
+        <div class="section-head"><h2>Reminders</h2></div>
+        <p class="section-note">Reminders are sent as real push notifications, even if this app is closed. Times use your device's current timezone.</p>
+        <button class="add-btn" id="push-toggle-btn">Enable reminders</button>
+        <p class="save-hint" id="push-status"></p>
+
+        <div class="builtin-reminders">
+          <label class="switch-row">
+            <span>Daily verse — <span id="verse-time-label">7:00 AM</span></span>
+            <input type="checkbox" id="verse-reminder-toggle" />
+          </label>
+          <label class="switch-row">
+            <span>Evening Examen — <span id="examen-time-label">9:00 PM</span></span>
+            <input type="checkbox" id="examen-reminder-toggle" />
+          </label>
+        </div>
+        <p class="section-note">Reminder times for individual practices and plans are set when you add or edit them under Rule of Life.</p>
+      </div>
+
+      <div class="section-block">
+        <div class="section-head"><h2>Your data</h2></div>
+        <p class="section-note">Everything — tasks, streak, journal — is stored only in this browser. Nothing is uploaded. Export a backup before clearing your browser data or switching devices.</p>
+        <div class="btn-row">
+          <button class="add-btn" id="export-btn">Export backup</button>
+          <button class="add-btn secondary" id="import-btn">Import backup</button>
+        </div>
+        <input type="file" id="import-file" accept="application/json" hidden />
+        <button class="add-btn danger" id="reset-btn">Erase all data</button>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<div class="modal-overlay" id="modal-overlay" hidden>
+  <div class="modal" id="modal-content"></div>
+</div>
+
+<script src="/app.js"></script>
+</body>
+</html>
